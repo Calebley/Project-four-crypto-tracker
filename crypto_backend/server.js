@@ -14,6 +14,24 @@ const MONGODB_URI = "mongodb://localhost:27017/crypto"
 const User = require("./models/User")
 
 //Middleware - cookie session
+app.set("trust proxy", 1)
+const store = new MongoDBSession({
+    uri: MONGODB_URI,
+    collection: "mySessions"
+})
+
+app.use(
+    session({
+        secret: "secret",
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+            secure: process.env.NODE_ENV === "production"
+        }
+    })
+)
+
 app.use(
     cors({
         credentials: true,
@@ -42,9 +60,9 @@ mongoose.connect(MONGODB_URI, {
 
 //Login =========================================
 app.post("/login", async (req, res) => {
-    const { username, password } = req.body
+    const { email, password } = req.body
 
-    const user = await User.findOne({username})
+    const user = await User.findOne({email})
 
     if(!user) {
         return res.status(400).json({ errors: [{ msg: "Invalid credentials" }]})
