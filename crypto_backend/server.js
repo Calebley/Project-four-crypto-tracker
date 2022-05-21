@@ -1,15 +1,31 @@
 require("dotenv").config()
 const express = require("express")
+const cors = require("cors")
 const mongoose = require("mongoose")
 const session = require("express-session")
 const MongoDBSession = require("connect-mongodb-session")(session)
 const bcrypt = require("bcrypt")
+const morgan = require("morgan")
 
 const app = express()
 const PORT = 3001
 const MONGODB_URI = "mongodb://localhost:27017/crypto"
 
 const User = require("./models/User")
+
+//Middleware - cookie session
+app.use(
+    cors({
+        credentials: true,
+        origin: ["http://localhost:4000"],
+        methods: "GET,HEAD,PUT,PATCH,POST,DELETE"
+    })
+)
+
+//Middleware - parsing
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
+app.use(morgan("tiny"))
 
 //Mongoose connection
 mongoose.connection.on("error", (err) => 
@@ -47,6 +63,7 @@ app.post("/login", async (req, res) => {
 
 //Register =========================================
 app.post("/register", async (req, res) => {
+    console.log("req.body", req.body)
     const { username, email, password } = req.body
 
     let user = await User.findOne({email})
@@ -64,8 +81,6 @@ app.post("/register", async (req, res) => {
     })
 
     await user.save()
-
-    res.redirect("/login")
 })
 
 app.get("/", (req, res) => {
