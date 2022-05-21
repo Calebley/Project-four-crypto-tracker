@@ -1,6 +1,11 @@
 import React, { useState } from "react"
+import { Navigate } from "react-router"
+import { connect } from "react-redux"
+import { register } from "../actions/authUser"
+import PropTypes from "prop-types"
+import store from "../store"
 
-const Registerpage = () => {
+const Registerpage = ({ register, isUserAuthenticated }) => {
 
     const [formData, setFormData] = useState({
         username: "",
@@ -16,7 +21,7 @@ const Registerpage = () => {
         if (password !== password2) {
             alert("Password does not match")
         } else {
-            Registerpage({ username, email, password })
+            register({ username, email, password })
         }
     }
 
@@ -24,6 +29,12 @@ const Registerpage = () => {
         ...formData,
         [e.target.name]: e.target.value
     })
+
+    console.log(store.getState())
+
+    if (isUserAuthenticated) {
+        return <Navigate to="/login" />
+    }
 
     return (
         <div className="Registerpage-container flex items-center justify-center min-h-screen bg-gray-100">
@@ -49,7 +60,7 @@ const Registerpage = () => {
                                 <input type="password" className="form-control w-full px-4 py-2 mt-2 text-sm border rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-600" placeholder="Enter password again" name="password2" value={password2} onChange={e => onChange(e)} />
                             </div>
                             <div class="flex">
-                                <button class="w-full px-6 py-2 mt-4 text-white text-sm bg-indigo-700 rounded-lg hover:bg-indigo-900">Create Account</button>
+                                <button class="w-full px-6 py-2 mt-4 text-white text-sm bg-indigo-700 rounded-lg hover:bg-indigo-900" type="submit">Create Account</button>
                             </div>
                         </div>
                     </form>
@@ -59,4 +70,13 @@ const Registerpage = () => {
     )
 }
 
-export default Registerpage
+Registerpage.propTypes = {
+    register: PropTypes.func.isRequired,
+    isUserAuthenticated: PropTypes.bool.isRequired
+}
+
+const mapStateToProps = state => ({
+    isUserAuthenticated: state.authUser.isUserAuthenticated
+})
+
+export default connect(mapStateToProps, { register }) (Registerpage)
