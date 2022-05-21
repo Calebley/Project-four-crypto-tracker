@@ -1,2 +1,7 @@
 export { default as Loginpage } from "./Loginpage"
 export { default as Registerpage } from "./Registerpage"
+export { default as UserNav } from "./UserNav"
+export { default as Cryptocurrencies } from "./Cryptocurrencies"
+export { default as News } from "./News"
+export { default as MyPortfolio } from "./MyPortfolio"
+export { default as Homepage } from "./Homepage"
