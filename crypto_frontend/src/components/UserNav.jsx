@@ -1,7 +1,19 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { Link, Outlet } from "react-router-dom"
+import store from "../store"
+import { useNavigate } from "react-router"
 
 const UserNav = () => {
+
+    let navigate = useNavigate()
+    const Store = { authenticated: store.getState() }
+    const isLoggedIn = Store.authenticated.authUser.isUserAuthenticated
+    console.log(isLoggedIn)
+
+    useEffect(() => {
+        if(!isLoggedIn) { navigate("/login") }
+    }, [isLoggedIn])
+
     return (
         <div>
         <div className="bg-indigo-700 shadow-lg">
