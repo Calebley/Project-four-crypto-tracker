@@ -2,7 +2,7 @@ import React from "react"
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import "./index.css"
-import { Loginpage, Registerpage, UserNav, Homepage, Cryptocurrencies, News, MyPortfolio } from "./components"
+import { Loginpage, Registerpage, UserNav, Homepage, Cryptocurrencies, News, MyPortfolio, CryptoInfo } from "./components"
 
 //Redux
 import { Provider } from "react-redux"
@@ -17,6 +17,7 @@ function App() {
           <Route path="/" element={<UserNav />}>
             <Route path="/" element={<Homepage />} />
             <Route path="/cryptocurrencies" element={<Cryptocurrencies />} />
+            <Route path="/crypto/:coinId" element={<CryptoInfo />} />
             <Route path="/news" element={<News />} />
             <Route path="/myportfolio" element={<MyPortfolio />} />
           </Route>

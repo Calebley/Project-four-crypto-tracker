@@ -15,7 +15,7 @@ const UserNav = () => {
     }, [isLoggedIn])
 
     return (
-        <div>
+        <div className="flex flex-col space-y-4">
         <div className="bg-indigo-700 shadow-lg">
         <div className="container mx-auto">
             <div className="sm: flex justify-center">

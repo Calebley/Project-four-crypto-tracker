@@ -34,7 +34,7 @@ const Loginpage = ({ login, isUserAuthenticated }) => {
                     <div>
                         <img
                             className="mx-auto h-12 w-auto"
-                            src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                            src="https://cryptologos.cc/logos/history/bitcoin-logo-2010-v2.png?v=003"
                             alt="Workflow"
                         />
                         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Log in to your account</h2>

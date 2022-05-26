@@ -4,7 +4,5 @@ import { cryptoApi } from "./cryptoApi";
 
 export default combineReducers({
     authUser,
-    reducer: {
-        [cryptoApi.reducerPath]: cryptoApi.reducer
-    }
+    cryptoApi: cryptoApi.reducer
 })
