@@ -27,7 +27,7 @@ const UserNav = () => {
                     <li className="sm:inline-block"><Link to="/"><a class="p-3 hover:text-white">Home</a></Link></li>
                     <li className="sm:inline-block"><Link to="/cryptocurrencies"><a class="p-3 hover:text-white">Cryptocurrencies</a></Link></li>
                     <li className="sm:inline-block"><Link to="news"><a class="p-3 hover:text-white">News</a></Link></li>
-                    <li className="sm:inline-block"><Link to="myportfolio"><a class="p-3 hover:text-white">My Portfolio</a></Link></li>
+                    <li className="sm:inline-block"><Link to="mywatchlist"><a class="p-3 hover:text-white">My Watchlist</a></Link></li>
                 </ul>
             </div>
         </div>

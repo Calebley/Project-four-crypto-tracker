@@ -12,6 +12,7 @@ import store from "../store";
 const BACKEND = "http://localhost:3001"
 
 const CryptoInfo = ({authUser: {id}}) => {
+    
     const { coinId } = useParams()
     const { data, isFetching } = useGetCryptoDetailsQuery(coinId)
     const cryptoInfo = data?.data?.coin
