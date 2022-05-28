@@ -1,17 +1,16 @@
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
-const favouritecoinSchema = new Schema({
-    coinName: {
-        type: String,
-        required: true
+const favouriteCoinSchema = new Schema({
+    userId: {
+        type: String
     },
-    currentPrice: {
-        type: Number,
-        required: true
-    },
-    symbol: {
+    coinUuid: {
         type: String,
-        required: true
+
     }
 })
+
+const FavouriteCoin = mongoose.model("favouriteCoin", favouriteCoinSchema)
+
+module.exports = FavouriteCoin

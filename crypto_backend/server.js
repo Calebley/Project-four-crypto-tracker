@@ -11,7 +11,10 @@ const app = express()
 const PORT = 3001
 const MONGODB_URI = "mongodb://localhost:27017/crypto"
 
+const isAuth = require("./middleware/isAuth")
 const User = require("./models/User")
+
+const coinController = require("./controllers/coinController")
 
 //Middleware - cookie session
 app.set("trust proxy", 1)
@@ -58,6 +61,11 @@ mongoose.connect(MONGODB_URI, {
     console.log("connected to mongoose...");
   });
 
+//Middleware - base routes
+app.use("/coin", coinController)
+
+
+
 //Login =========================================
 app.post("/login", async (req, res) => {
     const { email, password } = req.body
@@ -99,12 +107,15 @@ app.post("/register", async (req, res) => {
     })
 
     await user.save()
+
 })
 
-app.get("/", (req, res) => {
-    res.send("Project 4")
+app.get("/", isAuth, (req,res) => {
+    res.send("Directed to homepage")
 })
 
 app.listen(PORT, () => {
     console.log(`listening on ${PORT}`)
 })
+
+module.exports = app
