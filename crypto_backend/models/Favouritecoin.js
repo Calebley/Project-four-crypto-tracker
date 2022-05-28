@@ -7,6 +7,7 @@ const favouriteCoinSchema = new Schema({
     },
     coinUuid: {
         type: String,
+        
 
     }
 })
