@@ -1,6 +1,6 @@
 import axios from "axios"
 import urlcat from "urlcat"
-import { USER_LOADED, AUTH_USER_ERROR, REGISTER_USER_FAIL, REGISTER_USER_SUCCESS, LOGIN_USER_SUCCESS, LOGIN_USER_FAIl } from "./types"
+import { USER_LOADED, AUTH_USER_ERROR, REGISTER_USER_FAIL, REGISTER_USER_SUCCESS, LOGIN_USER_SUCCESS, LOGIN_USER_FAIL } from "./types"
 
 const BACKEND = "http://localhost:3001"
 
@@ -80,7 +80,7 @@ export const login = (email, password) => async (dispatch) => {
             errors.forEach(error => dispatch(alert(error.msg, "danger")))
         }
         dispatch({
-            type: LOGIN_USER_FAIl
+            type: LOGIN_USER_FAIL
         })
     }
 }

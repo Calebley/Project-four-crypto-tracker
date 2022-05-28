@@ -1,10 +1,12 @@
 import {
     REGISTER_USER_FAIL,
     REGISTER_USER_SUCCESS,
+    LOGIN_USER_FAIL,
     LOGIN_USER_SUCCESS,
     USER_LOADED,
     AUTH_USER_ERROR,
-    LOGIN_USER_FAIl
+    LOGOUT_USER,
+    DELETE_USER_ACCOUNT
 } from "../actions/types"
 
 const initialState = {
@@ -23,8 +25,8 @@ const authUser = (state = initialState, action) => {
                 loadingUser: false,
                 user: payload
             }
-        case LOGIN_USER_SUCCESS:
         case REGISTER_USER_SUCCESS:
+        case LOGIN_USER_SUCCESS:
             sessionStorage.setItem("token", payload.token)
             return {
                 ...state,
@@ -32,8 +34,16 @@ const authUser = (state = initialState, action) => {
                 isUserAuthenticated: true,
                 loadingUser: false
             }
-        case LOGIN_USER_FAIl:
         case REGISTER_USER_FAIL:
+        case LOGIN_USER_FAIL:    
+            sessionStorage.removeItem("token")
+            return {
+                ...state,
+                token: null,
+                isUserAuthenticated: false,
+                loadingUser: false
+            }
+        case AUTH_USER_ERROR:
             sessionStorage.removeItem("token")
             return {
                 ...state,

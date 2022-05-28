@@ -9,6 +9,7 @@ const UserNav = () => {
     const Store = { authenticated: store.getState() }
     const isLoggedIn = Store.authenticated.authUser.isUserAuthenticated
     console.log(isLoggedIn)
+    console.log(store.getState())
 
     useEffect(() => {
         if(!isLoggedIn) { navigate("/login") }

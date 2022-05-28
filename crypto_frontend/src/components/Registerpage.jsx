@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Navigate } from "react-router"
+import { useNavigate } from "react-router"
 import { connect } from "react-redux"
 import { register } from "../actions/authUser"
 import PropTypes from "prop-types"
@@ -7,6 +7,7 @@ import store from "../store"
 
 const Registerpage = ({ register, isUserAuthenticated }) => {
 
+    let navigate = useNavigate()
     const [formData, setFormData] = useState({
         username: "",
         email: "",
@@ -15,6 +16,10 @@ const Registerpage = ({ register, isUserAuthenticated }) => {
     })
 
     const { username, email, password, password2 } = formData
+    const onChange = e => setFormData({
+        ...formData,
+        [e.target.name]: e.target.value
+    })
 
     const onSubmit = async e => {
         e.preventDefault()
@@ -25,15 +30,10 @@ const Registerpage = ({ register, isUserAuthenticated }) => {
         }
     }
 
-    const onChange = e => setFormData({
-        ...formData,
-        [e.target.name]: e.target.value
-    })
-
     console.log(store.getState())
 
     if (isUserAuthenticated) {
-        return <Navigate to="/login" />
+        navigate("/")
     }
 
     return (
@@ -72,7 +72,7 @@ const Registerpage = ({ register, isUserAuthenticated }) => {
 
 Registerpage.propTypes = {
     register: PropTypes.func.isRequired,
-    isUserAuthenticated: PropTypes.bool.isRequired
+    isUserAuthenticated: PropTypes.bool
 }
 
 const mapStateToProps = state => ({
