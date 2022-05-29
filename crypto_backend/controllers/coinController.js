@@ -18,18 +18,19 @@ router.get("/:user_id", async (req, res) => {
     })
 })
 
-
 //Add new coin to watchlist ====================================
 router.post("/:coin_id/:user_id", async (req, res) => {
   
+    console.log("body", req.body)
+
     try {
         const user = await userSchema.findById(req.params.user_id).select("-password")
 
-        console.log("id",req.body.id)
-        console.log(req.body.cryptoInfo.uuid)
+        console.log("id",user)
+        
         const newCoin = new favouriteCoinSchema({
-            userId: req.body.id,
-            coinUuid: req.body.cryptoInfo.uuid
+            coinUuid: req.body.coin,
+            userId: req.body.user
         })
 
         console.log(newCoin)
