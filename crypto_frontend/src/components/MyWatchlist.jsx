@@ -7,6 +7,7 @@ import MyWatchlistItems from "./MyWatchlistItems";
 const BACKEND = "http://localhost:3001"
 
 const MyWatchlist = ({authUser: {id}}) => {
+    
     const [favouriteCoins, setFavouriteCoins] = useState([])
 
     useEffect(() => {
@@ -15,13 +16,14 @@ const MyWatchlist = ({authUser: {id}}) => {
         .then((data) => setFavouriteCoins(data))
     }, [favouriteCoins.length])
 
+    console.log(favouriteCoins)
     return (
         <div className="watchlist-container">
             <div className="text-xl font-bold">My Watchlist</div>
             <div className="watchlist-details">
                 <br />
                 {favouriteCoins !== null && favouriteCoins.length !== 0 ? (
-                    <MyWatchlistItems watchlist={favouriteCoins[0]}/>
+                    <MyWatchlistItems watchlist={favouriteCoins}/>
                 ) : (
                     <h4>No coins followed</h4>
                     )
