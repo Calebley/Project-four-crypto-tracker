@@ -6,9 +6,8 @@ import { connect } from "react-redux"
 import { useParams } from "react-router";
 import { useGetCryptoDetailsQuery, useGetCryptoHistoryQuery } from "../reducers/cryptoApi";
 import urlcat from "urlcat";
-import axios from "axios";
 import store from "../store";
-import { Line } from "react-chartjs-2" 
+import LineChart from "./LineChart"
 
 const BACKEND = "http://localhost:3001"
 
@@ -19,7 +18,7 @@ const CryptoInfo = ({ authUser: { id } }) => {
     const { data, isFetching } = useGetCryptoDetailsQuery(coinId)
     const { data: coinHistory } = useGetCryptoHistoryQuery({ coinId, timePeriod })
     const cryptoInfo = data?.data?.coin
-    
+
 
     if (isFetching) return "Loading..."
     console.log(data)
@@ -39,12 +38,9 @@ const CryptoInfo = ({ authUser: { id } }) => {
     const handleClick = async (e) => {
         const url = urlcat(BACKEND, `/coin/${cryptoInfo.uuid}/${id}`)
 
-
-
-
         await fetch(url, {
             method: "POST",
-            body: JSON.stringify({coin: cryptoInfo.uuid, user: id}),
+            body: JSON.stringify({ coin: cryptoInfo.uuid, user: id }),
             credentials: "include",
             headers: {
                 "Content-Type": "application/json"
@@ -65,18 +61,16 @@ const CryptoInfo = ({ authUser: { id } }) => {
                 <button class="btn btn-outline btn-xs ml-1" onClick={handleClick}>Follow</button>
             </div>
             <p class="text-sm ml-10">({cryptoInfo.symbol} / USD)</p>
+
             <div className="graph-container">
                 <select defaultValue="7d" className="select-timeperiod select select-ghost w-full max-w-xs" placeholder="Select Timeperiod" onChange={(value) => setTimePeriod(value)}>
                     {time.map((date) => <option key={date}>{date}</option>)}
                 </select>
                 <div className="graph-stats">
-                    {/* <Line
-                        data={{
-                            labels: {}
-                        }}
-                    /> */}
+                    <LineChart coinHistory={coinHistory} />
                 </div>
             </div>
+
             <div className="stats-table-container pt-2">
 
                 <table class="table w-full ">

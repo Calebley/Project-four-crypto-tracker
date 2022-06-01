@@ -2,7 +2,8 @@ import React from "react"
 import { Link } from "react-router-dom"
 import millify from "millify"
 import { useGetCryptosQuery } from "../reducers/cryptoApi"
-import { Cryptocurrencies } from "."
+import { Cryptocurrencies, News } from "."
+
 
 const Homepage = () => {
 
@@ -64,6 +65,11 @@ const Homepage = () => {
                 <div class="text-right text-xl text-green-500 font-bold"><Link to="/cryptocurrencies">Show more</Link></div>
             </div>
             <Cryptocurrencies simplified />
+            <div className="home-heading-container grid grid-cols-2 content-end">
+            <div class="text-2xl">Latest Crypto News</div>
+                <div class="text-right text-xl text-green-500 font-bold"><Link to="/news">Show more</Link></div>
+            </div>
+            <News simplified />
         </div>
     )
 }

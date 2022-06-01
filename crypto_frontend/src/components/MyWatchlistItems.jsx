@@ -1,42 +1,43 @@
 import React, { useState } from "react"
-import { useGetCryptoDetailsQuery } from "../reducers/cryptoApi"
-import millify from "millify"
+import PropTypes from "prop-types"
+import { connect } from "react-redux"
+import { useParams } from "react-router";
+import MyItem from "./myItem"
+import urlcat from "urlcat"
+
+const BACKEND = "http://localhost:3001"
 
 const MyWatchlistItems = ({ watchlist }) => {
-    console.log("watchlist", watchlist)
-    console.log(Object.values(watchlist))
-    const { data, isFetching } = useGetCryptoDetailsQuery(watchlist[0].coinUuid)
-    const [favouriteCoins, setFavouriteCoins] = useState([data?.data?.coin])
-    console.log(favouriteCoins)
+
+    console.log(watchlist)
+
+    // const [favouriteCoins, setFavouriteCoins] = useState([data?.data?.coin])
+    // console.log(favouriteCoins)
     return (
-        <div class="overflow-x-auto">
-            <table class="table w-full">
 
-                <thead>
-                    <tr>
+        <div class="crypto-card-container grid grid-cols-5 gap-5">
 
-                        <th>COIN</th>
-                        <th>CURRENT PRICE</th>
-                        <th>MARKET CAP</th>
-                        <th>VOLUME(24H)</th>
-                        <th>L30D</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    
-                        <tr>
+            {watchlist.map((item) => {
 
-                            <td>{favouriteCoins.name}</td>
-                            <td>test</td>
-                            <td>Blue</td>
-                        </tr>
-            
+                return (
+                    <div key={item.watchlistId}>
 
+                        <MyItem coinUuid={item.coinUuid} watchlistId={item.watchlistId}/>
+                    </div>
 
-                </tbody>
-            </table>
+                )
+            })}
+
         </div>
     )
 }
 
-export default MyWatchlistItems
+MyWatchlistItems.propTypes = {
+    authUser: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+    authUser: state.authUser
+})
+
+export default connect(mapStateToProps) (MyWatchlistItems)
