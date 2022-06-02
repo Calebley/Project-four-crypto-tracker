@@ -7,9 +7,9 @@ import urlcat from "urlcat"
 
 const BACKEND = "http://localhost:3001"
 
-const MyWatchlistItems = ({ watchlist }) => {
+const MyWatchlistItems = (props ) => {
 
-    console.log(watchlist)
+    console.log(props)
 
     // const [favouriteCoins, setFavouriteCoins] = useState([data?.data?.coin])
     // console.log(favouriteCoins)
@@ -17,12 +17,12 @@ const MyWatchlistItems = ({ watchlist }) => {
 
         <div class="crypto-card-container grid grid-cols-5 gap-5">
 
-            {watchlist.map((item) => {
+            {props.watchlist.map((item) => {
 
                 return (
                     <div key={item.watchlistId}>
 
-                        <MyItem coinUuid={item.coinUuid} watchlistId={item.watchlistId}/>
+                        <MyItem coinUuid={item.coinUuid} watchlistId={item.watchlistId} handleDelete={props.handleDelete}/>
                     </div>
 
                 )

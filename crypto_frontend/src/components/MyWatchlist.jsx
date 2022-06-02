@@ -9,6 +9,21 @@ const BACKEND = "http://localhost:3001"
 const MyWatchlist = ({authUser: {id}}) => {
     
     const [favouriteCoins, setFavouriteCoins] = useState([])
+    
+
+    
+
+    const handleDelete = async (id) => {
+        console.log("delete",id)
+        const url = urlcat(BACKEND, `/coin/delete/${id}`)
+        const response = await fetch(url, { method: "DELETE", credentials: "include" })
+
+        if (response.status === 200) {
+            const newFavouriteCoins = favouriteCoins.filter((e) => e.watchlistId !== id)
+            setFavouriteCoins(newFavouriteCoins)
+        }
+    }
+    
 
     useEffect(() => {
         fetch(urlcat(BACKEND, `/coin/${id}`))
@@ -23,7 +38,7 @@ const MyWatchlist = ({authUser: {id}}) => {
             <div className="watchlist-details">
                 <br />
                 {favouriteCoins !== null && favouriteCoins.length !== 0 ? (
-                    <MyWatchlistItems watchlist={favouriteCoins}/>
+                    <MyWatchlistItems watchlist={favouriteCoins} handleDelete={handleDelete}/>
                 ) : (
                     <h4>No coins followed</h4>
                     )

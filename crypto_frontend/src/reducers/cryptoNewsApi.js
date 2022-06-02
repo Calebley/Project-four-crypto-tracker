@@ -6,7 +6,7 @@ const cryptoNewsHeaders = {
     'x-rapidapi-host': process.env.REACT_APP_NEWS_RAPIDAPI_HOST,
 }
 
-const baseUrl = "https://coinranking1.p.rapidapi.com"
+const baseUrl = "https://bing-news-search1.p.rapidapi.com"
 
 const createRequest = (url) => ({url, headers: cryptoNewsHeaders})
 

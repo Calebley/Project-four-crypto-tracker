@@ -7,4 +7,5 @@ export default combineReducers({
     authUser,
     cryptoApi: cryptoApi.reducer,
     cryptoNewsApi: cryptoNewsApi.reducer
+    
 })

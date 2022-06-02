@@ -7,29 +7,30 @@ import urlcat from "urlcat"
 
 const BACKEND = "http://localhost:3001"
 
-const MyItem = (coinUuid) => {
+const MyItem = (props) => {
+    console.log(props)
     const navigate = useNavigate()
-    const { data } = useGetCryptoDetailsQuery(coinUuid.coinUuid)
-    const [coinData, setCoinData] = useState(data)
+    const { data } = useGetCryptoDetailsQuery(props.coinUuid)
+    
 
 
     //This method will delete a coin off watchlist
-    const handleDelete = async (id) => {
-        const url = urlcat(BACKEND, `/coin/delete/${id}`)
-        const response = await fetch(url, { method: "DELETE", credentials: "include" })
+    // const handleDelete = async (id) => {
+    //     const url = urlcat(BACKEND, `/coin/delete/${id}`)
+    //     const response = await fetch(url, { method: "DELETE", credentials: "include" })
 
-        if (response.status === 200) {
-            navigate("/")
+    //     if (response.status === 200) {
+    //         navigate("/")
 
-        }
-    }
+    //     }
+    // }
 
     return (
         <div>
 
             <div class="card card-compact w-96 h-80 shadow" >
                 <div class="card-actions justify-end">
-                    <button class="btn btn-square btn-xs" onClick={() => handleDelete(coinUuid.watchlistId)}>
+                    <button class="btn btn-square btn-xs" onClick={() => props.handleDelete(props.watchlistId)}>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="x" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
                     </button>
                 </div>
