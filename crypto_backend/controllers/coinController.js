@@ -9,7 +9,7 @@ const favouriteCoinSchema = require("../models/Favouritecoin")
 
 //Get all coins on watchlist
 router.get("/:user_id", async (req, res) => {
-    await favouriteCoinSchema.find({ userid: req.params.user_id })
+    await favouriteCoinSchema.find({ userId: req.params.user_id })
         .then(coin => {
             res.json(coin)
         })
@@ -23,9 +23,20 @@ router.post("/:coin_id/:user_id", async (req, res) => {
 
     console.log("body", req.body)
 
+    // let coin = await favouriteCoinSchema.findById(req.params.coin_id)
+    // if (coin) {
+    //     return res.status(400).json({ errors: [{ msg: "Already following coin" }]})
+    // }
+
     try {
         const user = await userSchema.findById(req.params.user_id).select("-password")
-
+        let coinList = await favouriteCoinSchema.find({ userId: req.params.user_id })
+        
+        //check if coin was already added
+        const searchCoin = coinList.find((coin) => coin.coinUuid === newCoin.coinUuid)
+        if (searchCoin) {
+            return res.status(401).json({ msg: "Coin already added"})
+        }
         //Create coin watchlist id
         function coinIdGenerator() {
 
@@ -62,10 +73,13 @@ router.post("/:coin_id/:user_id", async (req, res) => {
         })
 
         console.log(newCoin)
-        newCoin.save()
+            newCoin.save()
+
+        
     } catch (err) {
         res.status(500).send("Server error")
     }
+
 })
 
 //Delete a coin =====================================================
