@@ -10,9 +10,6 @@ const MyWatchlist = ({authUser: {id}}) => {
     
     const [favouriteCoins, setFavouriteCoins] = useState([])
     
-
-    
-
     const handleDelete = async (id) => {
         console.log("delete",id)
         const url = urlcat(BACKEND, `/coin/delete/${id}`)
@@ -26,6 +23,7 @@ const MyWatchlist = ({authUser: {id}}) => {
     
 
     useEffect(() => {
+        console.log("id",id)
         fetch(urlcat(BACKEND, `/coin/${id}`))
         .then((response) => response.json())
         .then((data) => setFavouriteCoins(data))

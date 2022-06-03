@@ -37,7 +37,8 @@ const CryptoInfo = ({ authUser: { id } }) => {
 
     const handleClick = async (e) => {
         const url = urlcat(BACKEND, `/coin/${cryptoInfo.uuid}/${id}`)
-
+        alert("following coin")
+        
         await fetch(url, {
             method: "POST",
             body: JSON.stringify({ coin: cryptoInfo.uuid, user: id }),
@@ -45,11 +46,9 @@ const CryptoInfo = ({ authUser: { id } }) => {
             headers: {
                 "Content-Type": "application/json"
             }
+        }).catch(error => {
+            console.log(error)
         })
-            .catch(error => {
-                console.log(error)
-            })
-        alert("Following coin")
     }
 
 

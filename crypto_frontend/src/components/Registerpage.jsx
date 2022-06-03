@@ -28,6 +28,8 @@ const Registerpage = ({ register, isUserAuthenticated }) => {
         } else {
             register({ username, email, password })
         }
+        alert("Account created!")
+        navigate("/")
     }
 
     console.log(store.getState())
