@@ -30,13 +30,13 @@ router.post("/:coin_id/:user_id", async (req, res) => {
 
     try {
         const user = await userSchema.findById(req.params.user_id).select("-password")
-        let coinList = await favouriteCoinSchema.find({ userId: req.params.user_id })
+        // let coinList = await favouriteCoinSchema.find({ userId: req.params.user_id })
         
         //check if coin was already added
-        const searchCoin = coinList.find((coin) => coin.coinUuid === newCoin.coinUuid)
-        if (searchCoin) {
-            return res.status(401).json({ msg: "Coin already added"})
-        }
+        // const searchCoin = coinList.find((coin) => coin.coinUuid === newCoin.coinUuid)
+        // if (searchCoin) {
+        //     return res.status(401).json({ msg: "Coin already added"})
+        // }
         //Create coin watchlist id
         function coinIdGenerator() {
 
